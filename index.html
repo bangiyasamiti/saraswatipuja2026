@@ -26,52 +26,6 @@
             font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
             background: #fff;
-            cursor: none;
-        }
-
-        /* Custom Cursor */
-        .custom-cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--orange);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 99999;
-            transition: all 0.1s ease;
-            mix-blend-mode: difference;
-        }
-
-        .cursor-follower {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--pink);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 99998;
-            transition: all 0.3s ease;
-            opacity: 0.5;
-        }
-
-        /* Flower Trail */
-        .flower-trail {
-            position: fixed;
-            pointer-events: none;
-            font-size: 20px;
-            z-index: 99997;
-            animation: fadeOut 2s forwards;
-        }
-
-        @keyframes fadeOut {
-            0% {
-                opacity: 1;
-                transform: translateY(0) rotate(0deg);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-50px) rotate(360deg);
-            }
         }
 
         /* Floating Particles */
@@ -1364,14 +1318,6 @@
         }
 
         @media (max-width: 1024px) {
-            body {
-                cursor: auto;
-            }
-
-            .custom-cursor, .cursor-follower {
-                display: none;
-            }
-
             .hero-content {
                 grid-template-columns: 1fr;
                 gap: 40px;
@@ -1492,10 +1438,6 @@
     </style>
 </head>
 <body>
-    <!-- Custom Cursor -->
-    <div class="custom-cursor" id="cursor"></div>
-    <div class="cursor-follower" id="cursorFollower"></div>
-
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loader"></div>
@@ -1535,7 +1477,6 @@
             <li><a href="#countdown" onclick="toggleMobileMenu()">Countdown</a></li>
             <li><a href="#schedule" onclick="toggleMobileMenu()">Schedule</a></li>
             <li><a href="#team" onclick="toggleMobileMenu()">Reach Out</a></li>
-
         </ul>
     </div>
 
@@ -1763,47 +1704,6 @@
     <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
 
     <script>
-        // Custom Cursor
-        const cursor = document.getElementById('cursor');
-        const cursorFollower = document.getElementById('cursorFollower');
-        const flowerEmojis = ['🌸', '🌺', '🪷', '🌼', '🌻', '🏵️'];
-        let lastX = 0, lastY = 0;
-        let followerX = 0, followerY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            lastX = e.clientX;
-            lastY = e.clientY;
-            
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-
-            // Flower trail
-            if (Math.random() > 0.9) {
-                createFlowerTrail(e.clientX, e.clientY);
-            }
-        });
-
-        function animateFollower() {
-            followerX += (lastX - followerX) * 0.1;
-            followerY += (lastY - followerY) * 0.1;
-            
-            cursorFollower.style.left = followerX + 'px';
-            cursorFollower.style.top = followerY + 'px';
-            
-            requestAnimationFrame(animateFollower);
-        }
-        animateFollower();
-
-        function createFlowerTrail(x, y) {
-            const flower = document.createElement('div');
-            flower.className = 'flower-trail';
-            flower.textContent = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
-            flower.style.left = x + 'px';
-            flower.style.top = y + 'px';
-            document.body.appendChild(flower);
-            setTimeout(() => flower.remove(), 2000);
-        }
-
         // Floating Particles
         function createParticles() {
             for (let i = 0; i < 20; i++) {
